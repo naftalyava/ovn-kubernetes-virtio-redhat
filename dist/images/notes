@@ -1,1 +1,80 @@
 notes
+
+sudo rm /etc/containerd/config.toml
+sudo systemctl restart containerd
+
+sudo kubeadm init --pod-network-cidr=172.16.0.0/16 --service-cidr=10.96.0.0/12
+
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+
+
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.5.0/aio/deploy/recommended.yaml
+
+
+
+
+
+
+
+
+
+
+
+
+sudo apt-get install openvswitch-switch openvswitch-common
+
+
+sudo su -
+echo ip6_tables > /etc/modules-load.d/ip6_tables.conf
+modprobe ip6_tables
+
+
+
+kubectl label node k8s-worker0 k8s.ovn.org/dpu-host=""
+
+
+
+
+kubectl create token ovn -n ovn-kubernetes
+
+
+
+
+
+./daemonset.sh --image-pull-policy=Always --image=docker.io/navadiaev/ovn-daemonset-f:latest --net-cidr=172.16.0.0/16 --svc-cidr=10.96.0.0/12 --gateway-mode="shared" --gateway-options="--gateway-interface=enp8s0" --ovnkube-node-mgmt-port-netdev=enp8s0 --k8s-apiserver=https://192.168.1.47:6443 --multicast-enabled --disable-snat-multiple-gws --disable-pkt-mtu-check=true
+
+
+
+kubectl create -f ../yaml/ovn-setup.yaml
+kubectl create -f ../yaml/ovnkube-db.yaml
+kubectl create -f ../yaml/ovnkube-master.yaml
+kubectl create -f ../yaml/ovnkube-node.yaml
+kubectl create -f ../yaml/ovnkube-node-dpu-host.yaml
+
+
+kubectl delete -f ../yaml/ovn-setup.yaml
+kubectl delete -f ../yaml/ovnkube-db.yaml
+kubectl delete -f ../yaml/ovnkube-master.yaml
+kubectl delete -f ../yaml/ovnkube-node.yaml
+kubectl delete -f ../yaml/ovnkube-node-dpu-host.yaml
+
+
+
+
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ovn-secret
+  namespace: ovn-kubernetes
+  annotations:
+    kubernetes.io/service-account.name: ovn
+type: kubernetes.io/service-account-token
+EOF
+
+
+
+kubectl describe secrets/ovn-secret -n ovn-kubernetes
