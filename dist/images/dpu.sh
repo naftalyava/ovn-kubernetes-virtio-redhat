@@ -4,7 +4,7 @@ export K8S_TOKEN="eyJhbGciOiJSUzI1NiIsImtpZCI6InJIYXJHWHVWX2hubTRZb2Ftb0lsU1hlRV
 export K8S_CACERT="/home/core/ca.crt"
 export OVN_NET_CIDR="172.16.0.0/16"
 export OVN_SVC_CIDR="10.96.0.0/16"
-export DPU_IP="192.168.1.120"
+export DPU_IP="10.5.210.16"
 # for external traffic to go through a different gateway than the default,
 # add to the below: --gateway-nexthop=<next-hop-ip>
 export OVN_GATEWAY_OPTS='--gateway-interface=enp8s0'

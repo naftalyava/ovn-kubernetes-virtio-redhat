@@ -7,6 +7,7 @@ import (
 	"reflect"
 	"strings"
 	"sync"
+	"time"
 
 	"github.com/coreos/go-iptables/iptables"
 	"github.com/ovn-org/ovn-kubernetes/go-controller/pkg/config"
@@ -1366,6 +1367,10 @@ func newSharedGateway(nodeName string, subnets []*net.IPNet, gwNextHops []net.IP
 		if err != nil {
 			return err
 		}
+		for false {
+			klog.Info("naftaly: going to sleep... [after newGatewayOpenFlowManager]")
+			time.Sleep(100)
+		}
 
 		// resync flows on IP change
 		gw.nodeIPManager.OnChanged = func() {
@@ -1393,7 +1398,19 @@ func newSharedGateway(nodeName string, subnets []*net.IPNet, gwNextHops []net.IP
 			// no service OpenFlows, request to sync flows now.
 			gw.openflowManager.requestFlowSync()
 		}
+
+		klog.Info("naftaly: going to sleep... [gw.initFunc]")
+		for false {
+			// until here everything is ok
+			time.Sleep(100)
+		}
 		return nil
+	}
+
+	klog.Info("naftaly: going to sleep... [newSharedGateway complete]")
+	for false {
+		// until here everything is ok
+		time.Sleep(100)
 	}
 
 	klog.Info("Shared Gateway Creation Complete")

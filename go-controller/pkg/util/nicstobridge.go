@@ -17,7 +17,7 @@ import (
 
 const (
 	ubuntuDefaultFile = "/etc/default/openvswitch-switch"
-	rhelDefaultFile   = "/etc/default/openvswitch"
+	rhelDefaultFile   = "/etc/default/openvswitch-switch"
 )
 
 func GetBridgeName(iface string) string {
@@ -375,6 +375,8 @@ func GetDPUHostInterface(bridgeName string) (string, error) {
 			if err == nil && flavor == sriovnet.PORT_FLAVOUR_PCI_PF {
 				// host representor interface found
 				return stdout, nil
+			} else {
+				fmt.Errorf("naftaly: interface %q was ignored ", stdout)
 			}
 			continue
 		}

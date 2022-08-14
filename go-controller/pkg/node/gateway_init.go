@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net"
 	"strings"
+	"time"
 
 	"k8s.io/klog/v2"
 	utilnet "k8s.io/utils/net"
@@ -361,6 +362,11 @@ func (n *OvnNode) initGateway(subnets []*net.IPNet, nodeAnnotator kube.Annotator
 	waiter.AddWait(readyGwFunc, initGwFunc)
 	n.gateway = gw
 
+	klog.Info("naftaly: about to return from initGateway")
+	for false {
+		// all is goo until here
+		time.Sleep(100)
+	}
 	return n.validateVTEPInterfaceMTU()
 }
 

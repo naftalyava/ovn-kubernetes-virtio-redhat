@@ -431,8 +431,21 @@ func (n *OvnNode) Start(ctx context.Context, wg *sync.WaitGroup) error {
 	if err := waiter.Wait(); err != nil {
 		return err
 	}
+
+	klog.Infof("naftaly: about to start gateway [node.go:435]")
+	for false {
+		//
+		time.Sleep(100)
+	}
+
 	n.gateway.Start(n.stopChan, wg)
 	klog.Infof("Gateway and management port readiness took %v", time.Since(start))
+
+	klog.Infof("naftaly: going to sleep... [node.go:444]")
+	for false {
+		// broken here
+		time.Sleep(100)
+	}
 
 	// Note(adrianc): DPU deployments are expected to support the new shared gateway changes, upgrade flow
 	// is not needed. Future upgrade flows will need to take DPUs into account.
@@ -507,6 +520,10 @@ func (n *OvnNode) Start(ctx context.Context, wg *sync.WaitGroup) error {
 		}
 	}
 
+	klog.Info("naftaly: about to check if hybrid overlay enabled")
+	for false {
+		time.Sleep(100)
+	}
 	if config.HybridOverlay.Enabled {
 		// Not supported with DPUs, enforced in config
 		// TODO(adrianc): Revisit above comment
@@ -531,6 +548,11 @@ func (n *OvnNode) Start(ctx context.Context, wg *sync.WaitGroup) error {
 		klog.Errorf("Reset of initial klog \"loglevel\" failed, err: %v", err)
 	}
 
+	klog.Info("naftaly: node.go just before CheckManagmentPortHealth")
+	for false {
+		// all is good until here
+		time.Sleep(100)
+	}
 	// start management port health check
 	mgmtPort.CheckManagementPortHealth(mgmtPortConfig, n.stopChan)
 
@@ -552,6 +574,11 @@ func (n *OvnNode) Start(ctx context.Context, wg *sync.WaitGroup) error {
 		if err != nil {
 			return fmt.Errorf("failed to watch endpoints: %w", err)
 		}
+	}
+
+	klog.Info("naftaly: after checkForStaleOVSInterfaces")
+	for false {
+		time.Sleep(100)
 	}
 
 	if config.OvnKubeNode.Mode == types.NodeModeDPU {

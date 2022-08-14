@@ -230,9 +230,13 @@ func GetVfRepresentorDPU(pfID, vfIndex string) (string, error) {
 // e.g <vf_num> and will return PORT_FLAVOUR_UNKNOWN for such cases.
 func GetRepresentorPortFlavour(netdev string) (PortFlavour, error) {
 
-	if netdev == "enp8s0" {
+	fmt.Errorf("naftaly: interface %q was ignored ", netdev)
+
+	if netdev == "enp8s0\n" || netdev == "enp7s0\n" || netdev == "enp8s0" || netdev == "enp7s0" {
+		fmt.Errorf("naftaly: true")
 		return PORT_FLAVOUR_PCI_PF, nil
 	}
+	fmt.Errorf("naftaly: false")
 
 	return PORT_FLAVOUR_UNKNOWN, nil
 }
