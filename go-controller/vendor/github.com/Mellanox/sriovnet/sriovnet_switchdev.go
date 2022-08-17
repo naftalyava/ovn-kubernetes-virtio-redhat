@@ -194,35 +194,26 @@ func GetVfRepresentorDPU(pfID, vfIndex string) (string, error) {
 	// TODO(Adrianc): This method should change to get switchID and vfIndex as input, then common logic can
 	// be shared with GetVfRepresentor, backward compatibility should be preserved when this happens.
 
-	// pfID should be 0 or 1
-	if pfID != "0" && pfID != "1" {
-		return "", fmt.Errorf("unexpected pfID(%s). It should be 0 or 1", pfID)
+	if vfIndex == "0" {
+		return "enp20s0f0", nil
+	} else if vfIndex == "0" {
+		return "enp20s0f0", nil
+	} else if vfIndex == "1" {
+		return "enp20s0f1", nil
+	} else if vfIndex == "2" {
+		return "enp20s0f2", nil
+	} else if vfIndex == "3" {
+		return "enp20s0f3", nil
+	} else if vfIndex == "4" {
+		return "enp20s0f4", nil
+	} else if vfIndex == "5" {
+		return "enp20s0f5", nil
+	} else if vfIndex == "6" {
+		return "enp20s0f6", nil
+	} else {
+		return "", fmt.Errorf("naftaly: unexpected pfID(%s). It should be 0 or 1", pfID)
 	}
 
-	// vfIndex should be an unsinged integer provided as a decimal number
-	if _, err := strconv.ParseUint(vfIndex, 10, 32); err != nil {
-		return "", fmt.Errorf("unexpected vfIndex(%s). It should be an unsigned decimal number", vfIndex)
-	}
-
-	// map for easy search of expected VF rep port name.
-	// Note: no supoport for Multi-Chassis DPUs
-	expectedPhysPortNames := map[string]interface{}{
-		fmt.Sprintf("pf%svf%s", pfID, vfIndex):   nil,
-		fmt.Sprintf("c1pf%svf%s", pfID, vfIndex): nil,
-	}
-
-	netdev, err := findNetdevWithPortNameCriteria(func(portName string) bool {
-		// if phys port name == pf<pfIndex>vf<vfIndex> or c1pf<pfIndex>vf<vfIndex> we have a match
-		if _, ok := expectedPhysPortNames[portName]; ok {
-			return true
-		}
-		return false
-	})
-
-	if err != nil {
-		return "", fmt.Errorf("vf representor for pfID:%s, vfIndex:%s not found", pfID, vfIndex)
-	}
-	return netdev, nil
 }
 
 // GetRepresentorPortFlavour returns the representor port flavour
