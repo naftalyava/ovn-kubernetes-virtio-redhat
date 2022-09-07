@@ -195,25 +195,24 @@ func GetVfRepresentorDPU(pfID, vfIndex string) (string, error) {
 	// be shared with GetVfRepresentor, backward compatibility should be preserved when this happens.
 
 	if vfIndex == "0" {
-		return "enp20s0f0", nil
-	} else if vfIndex == "0" {
-		return "enp20s0f0", nil
+		return "enP2p15s0v1", nil
 	} else if vfIndex == "1" {
-		return "enp20s0f1", nil
+		return "enP2p15s0v2", nil
 	} else if vfIndex == "2" {
-		return "enp20s0f2", nil
+		return "enP2p15s0v3", nil
 	} else if vfIndex == "3" {
-		return "enp20s0f3", nil
+		return "enP2p15s0v4", nil
 	} else if vfIndex == "4" {
-		return "enp20s0f4", nil
+		return "enP2p15s0v5", nil
 	} else if vfIndex == "5" {
-		return "enp20s0f5", nil
+		return "enP2p15s0v6", nil
 	} else if vfIndex == "6" {
-		return "enp20s0f6", nil
+		return "enP2p15s0v7", nil
+	} else if vfIndex == "7" {
+		return "enP2p15s0v8", nil
 	} else {
 		return "", fmt.Errorf("naftaly: unexpected pfID(%s). It should be 0 or 1", pfID)
 	}
-
 }
 
 // GetRepresentorPortFlavour returns the representor port flavour
@@ -223,7 +222,7 @@ func GetRepresentorPortFlavour(netdev string) (PortFlavour, error) {
 
 	fmt.Errorf("naftaly: interface %q was ignored ", netdev)
 
-	if netdev == "enp8s0\n" || netdev == "enp7s0\n" || netdev == "enp8s0" || netdev == "enp7s0" {
+	if netdev == "breth0\n" || netdev == "eth0" || netdev == "enp8s0\n" || netdev == "enp7s0\n" || netdev == "enp8s0" || netdev == "enp7s0" {
 		fmt.Errorf("naftaly: true")
 		return PORT_FLAVOUR_PCI_PF, nil
 	}

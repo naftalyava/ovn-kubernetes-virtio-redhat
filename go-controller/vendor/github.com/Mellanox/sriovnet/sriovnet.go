@@ -482,7 +482,7 @@ func GetNetDevicesFromPci(pciAddress string) ([]string, error) {
 // GetPfPciFromVfPci retrieves the parent PF PCI address of the provided VF PCI address in D:B:D.f format
 func GetPfPciFromVfPci(vfPciAddress string) (string, error) {
 	pfPath := filepath.Join(PciSysDir, vfPciAddress, "physfn")
-	pfPath = "/sys/bus/pci/devices/0000:15:00.0"
+	//pfPath = "/sys/bus/pci/devices/0000:15:00.0"
 	pciDevDir, err := utilfs.Fs.Readlink(pfPath)
 	if err != nil {
 		return "", fmt.Errorf("failed to read physfn link, provided address may not be a VF. %v", err)
