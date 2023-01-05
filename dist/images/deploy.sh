@@ -1,4 +1,4 @@
-./daemonset.sh --image-pull-policy=Always --image=docker.io/navadiaev/ovn-daemonset-f:latest --net-cidr=172.16.0.0/16 --svc-cidr=10.96.0.0/12 --gateway-mode="shared" --ovnkube-node-mgmt-port-netdev=enp9s0 --k8s-apiserver=https://192.168.1.100:6443 --multicast-enabled --disable-snat-multiple-gws --disable-pkt-mtu-check=true
+./daemonset.sh --image-pull-policy=Always --image=docker.io/navadiaev/ovn-daemonset-virtio-f:latest --net-cidr=172.16.0.0/16 --svc-cidr=10.96.0.0/12 --gateway-mode="shared" --ovnkube-node-mgmt-port-netdev=enp26s0f1 --k8s-apiserver=https://192.168.1.100:6443 --multicast-enabled --disable-snat-multiple-gws --disable-pkt-mtu-check=true
 
 kubectl delete -f ../yaml/ovn-setup.yaml
 kubectl delete -f ../yaml/ovnkube-db.yaml

@@ -279,6 +279,11 @@ func (n *OvnNode) initGateway(subnets []*net.IPNet, nodeAnnotator kube.Annotator
 		return err
 	}
 
+	err = configureSvcRouteViaInterface(gatewayIntf, gatewayNextHops)
+	if err != nil {
+		return err
+	}
+
 	egressGWInterface := ""
 	if config.Gateway.EgressGWInterface != "" {
 		egressGWInterface = interfaceForEXGW(config.Gateway.EgressGWInterface)

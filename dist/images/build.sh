@@ -9,6 +9,6 @@ read
 
 cp ../../go-controller/_output/go/bin/* .
 
-docker build -t docker.io/navadiaev/ovn-daemonset-f:latest -f Dockerfile.fedora .
+docker build -t docker.io/navadiaev/ovn-daemonset-virtio-f:latest -f Dockerfile.fedora .
 
-docker push navadiaev/ovn-daemonset-f:latest
+docker push navadiaev/ovn-daemonset-virtio-f:latest
